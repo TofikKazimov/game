@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Coin Tap Game</title>
+<style>
+body{
+    text-align:center;
+    font-family:Arial;
+    background:#222;
+    color:white;
+}
+button{
+    font-size:30px;
+    padding:20px;
+    margin:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💰 Coin Tap Game</h1>
+
+<h2>Coins: <span id="coins">0</span></h2>
+
+<button onclick="addCoin()">Tap Coin</button>
+
+<br>
+
+<button onclick="buyUpgrade()">Buy Upgrade (50)</button>
+
+<script>
+
+let coins = 0;
+let power = 1;
+
+function addCoin(){
+    coins += power;
+    document.getElementById("coins").innerText = coins;
+}
+
+function buyUpgrade(){
+    if(coins >= 50){
+        coins -= 50;
+        power += 1;
+        alert("Upgrade bought! Power: " + power);
+    }else{
+        alert("Not enough coins");
+    }
+}
+
+</script>
+
+</body>
+</html>
