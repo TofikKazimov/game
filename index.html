@@ -1,58 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>Coin Tap Game</title>
-        <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
-<style>
-body{
-    text-align:center;
-    font-family:Arial;
-    background:#222;
-    color:white;
-}
-button{
-    font-size:30px;
-    padding:20px;
-    margin:20px;
-}
-</style>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+            background: #222;
+            color: white;
+        }
+        button {
+            font-size: 30px;
+            padding: 20px;
+            margin: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>💰 Coin Tap Game</h1>
+    <h1>💰 Coin Tap Game</h1>
+    <h2>Coins: <span id="coins">0</span></h2>
 
-<h2>Coins: <span id="coins">0</span></h2>
+    <button onclick="addCoin()">Tap Coin</button>
+    <br>
+    <button onclick="buyUpgrade()">Buy Upgrade (50)</button>
 
-<button onclick="addCoin()">Tap Coin</button>
+    <script>
+        let coins = 0;
+        let power = 1;
 
-<br>
+        function addCoin() {
+            coins += power;
+            updateDisplay();
+        }
 
-<button onclick="buyUpgrade()">Buy Upgrade (50)</button>
+        function buyUpgrade() {
+            if (coins >= 50) {
+                coins -= 50;
+                power += 1;
+                updateDisplay();
+                alert("Upgrade bought! Power: " + power);
+            } else {
+                alert("Not enough coins");
+            }
+        }
 
-<script>
+        function updateDisplay() {
+            document.getElementById("coins").innerText = coins;
+        }
 
-let coins = 0;
-let power = 1;
-
-function addCoin(){
-    coins += power;
-    document.getElementById("coins").innerText = coins;
-}
-
-function buyUpgrade(){
-    if(coins >= 50){
-        coins -= 50;
-        power += 1;
-        alert("Upgrade bought! Power: " + power);
-    }else{
-        alert("Not enough coins");
-    }
-}
-
-</script>
+        // --- Регистрация Service Worker ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/game/sw.js')
+                    .then(reg => console.log('Service Worker зарегистрирован!', reg))
+                    .catch(err => console.log('Ошибка регистрации SW:', err));
+            });
+        }
+    </script>
 
 </body>
 </html>
